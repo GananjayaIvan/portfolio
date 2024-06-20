@@ -134,7 +134,7 @@ img {
     background-color: var(--color-base2);
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1080px) {
     .navbar {
         min-height: 100vh;
         width: var(--sidbar-width);
@@ -162,7 +162,7 @@ img {
 }
 
 /* Media Query for Mobile Devices */
-@media (max-width: 768px) {
+@media (max-width: 1080px) {
     /* NAVBAR */
     .navbar {
         background: linear-gradient(rgba(0, 12, 14, 0.9), rgba(0, 12, 14, 0.9)), url(../images/sidebar-img.jpg);
