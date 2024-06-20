@@ -187,6 +187,10 @@ img {
         background-color: var(--color-base2);
         color: var(--color-body);
         font-family: var(--font-base), sans-serif;
+        font-size: 60%;
+    }
+    table {
+        width: 60%;
     }
 }
 
@@ -264,9 +268,6 @@ img {
 }
 
 /* SOCIAL ICONS */
-.social-icons {
-
-}
 
 .social-icons a {
     width: 40px;
