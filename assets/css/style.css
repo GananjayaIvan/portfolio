@@ -187,10 +187,10 @@ img {
         background-color: var(--color-base2);
         color: var(--color-body);
         font-family: var(--font-base), sans-serif;
-        font-size: 60%;
+        font-size: 75%;
     }
     table {
-        width: 60%;
+        width: 50%;
     }
 }
 
