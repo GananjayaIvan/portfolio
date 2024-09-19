@@ -19,7 +19,6 @@
     <meta property="og:type" content="website">
     <meta property="og:image" content="https://raw.githubusercontent.com/GananjayaIvan/portfolio/main/assets/images/Thumbnail.png">
     <meta property="og:site_name" content="Ivan Gananjaya's Portfolio">
-
 </head>
 
 <body data-bs-spy="scroll" data-bs-target=".navbar">
@@ -53,7 +52,7 @@
                         <a class="nav-link" href="#soft-skills">Soft Skills</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#data_projects">Data Analyst Projects</a>
+                        <a class="nav-link" href="#projects">Projects</a>
                     </li>
                 </ul>
             </div>
@@ -67,11 +66,11 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-10">
-                        <h1 class="display-4 fw-bold" data-aos="fade-up">HI, MY NAME IS IVAN GANANJAYA <br> I'M A <span class="text-brand">QUALITY ASSURANCE & DATA ANALYTIC ENTHUSIAST
+                        <h1 class="display-4 fw-bold" data-aos="fade-up">HI, MY NAME IS IVAN GANANJAYA <br> I'M A <span class="text-brand">DATA ANALYST
                             </span> FROM BANDUNG, INDONESIA</h1>
-                        <p class="lead mt-2 mb-4" data-aos="fade-up" data-aos-delay="300">I specialize in ensuring software quality & transforming raw data into actionable insights. Through advanced analytics techniques and innovative problem-solving. Unlocking insights and empowering decisions.</p>
+                        <p class="lead mt-2 mb-4" data-aos="fade-up" data-aos-delay="300">I specialize in transforming raw data into actionable insights. Through advanced analytics techniques and innovative problem-solving. Unlocking insights and empowering decisions.</p>
                         <div data-aos="fade-up" data-aos-delay="600">
-                            <a href="#data_projects" class="btn btn-brand me-3">Explore My Work</a> <br> <br>
+                            <a href="#projects" class="btn btn-brand me-3">Explore My Work</a> <br> <br>
                             <i class="bi bi-linkedin"></i>
                               <a href="https://www.linkedin.com/in/ivan-gananjaya/" target="_blank" rel="noopener noreferrer" class="link-custom"> LinkedIn<i class="fab fa-linkedin"></i> </a>  &nbsp;&nbsp; 
                             <i class="bi bi-whatsapp"></i>
@@ -377,1186 +376,18 @@
         
             </div>
         </section>
-        
-        <!--Soft Skills End -->
 
-        <!--Modal Start Project 1-->
-        <!-- Vertically centered scrollable modal -->
-        <div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class = "modal-dialog modal-dialog-centered modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Steam Product Analysis</h5>
-                    </div>
-                    <br><br>
-                    <img src="https://wallpapercave.com/wp/wp3130205.png" style="width: 99%; margin: 0 auto;">
-                    <div class="modal-body">                        
-                        <h5>About</h5>  <br>
-                        In this project, we aim to investigate and analyze the gaming trends based on their player count in the last 24 hours, and all time high player count.
-                        <br><br>
-                        With the use of Python for data cleaning and product segmentation, Excel for imputing data, and tableau for data visualization, we can analyze and find out what type of games are popular according to market demand.
-                        <br><br>
-                        <h5>Objective</h5> <br>
-                        To identify past and current gaming trends with clustering for the top 250 games on steam using active players and peak player count to boost steam player count by 10% in the next 3-6 months.
-                    <br><br> <br>
-                    <h5>Steps to take & Considerations</h5> <br><br>
-                    <img src = assets/images/project-1_image1.png style="width: 100%;" class="img-zoom" alt="Zoomable Image"> <br> <br> <br>
-                    <h5>Cleaning Steam Store Data</h5> <br><br>
-                    <table class="table table-dark">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Data Cleaning Steps</th>
-                                <th scope="col">Expected Result</th>
-                                <th scope="col">Code Snippet</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Selecting the Columns that we will use</td>
-                                <td>Data with only the selected column</td>
-                                <td>df = pd.read_csv('steam_store_data.csv') <br>
-                                    df = df[['steam_appid', 'type', 'name','genres','release_date', 'required_age', 'controller_support','platforms', 'categories', 'recommendations']]
-                                    </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Changing the date Format</td>
-                                <td>Changing the data type on release date to 'date'</td>
-                                <td>df = df.dropna(subset=['release_date'])  <br>
-                                    df['release_date'] = df2['release_date'].apply(lambda x: eval(x)['date'])
-                                    </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Seperating each platform</td>
-                                <td>To split the input into 3 columns for each platform: Windows, Mac, & Linux</td>
-                                <td># Function to construct the platform string <br>
-                                    def construct_platform_string(row): <br>
-                                        platform_dict = eval(row) <br>
-                                        platform_string = '' <br>
-                                        if platform_dict['windows']: <br>
-                                            platform_string += 'windows, ' <br>
-                                        if platform_dict['mac']: <br>
-                                            platform_string += 'mac, ' <br>
-                                        if platform_dict['linux']: <br>
-                                            platform_string += 'linux ' <br>
-                                        return platform_string.strip() <br> <br>
-
-                                        # Splitting the 'platforms' column into three columns <br>
-                                        df[['windows', 'mac', 'linux']] = df['platforms'].str.split(',', expand=True) <br>
-                                        df['windows'] = df['windows'].notnull().astype(int) <br>
-                                        df['mac'] = df['mac'].notnull().astype(int) <br>
-                                        df['linux'] = df['linux'].notnull().astype(int) <br>
-                                    </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">4</th>
-                                <td>Seperating each Categories</td>
-                                <td>To seperate each categories</td>
-                                <td># Convert string representation of list to actual list <br>
-                                    df['categories'] = df['categories'].apply(lambda x: ast.literal_eval(x) if pd.notna(x) else []) <br> <br>
-                                    
-                                    # Extract descriptions from the categories column <br>
-                                    df['categories'] = df['categories'].apply(lambda x: [entry['description'] for entry in x]) <br>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">5</th>
-                                <td>Status</td>
-                                <td>To Seperate each tags into its own input</td>
-                                <td>df_tags = df.explode('categories') <br>
-                                    df_tags = df_tags[['steam_appid','categories']] <br>
-                                </td>
-                            </tr>
-
-                        </tbody>
-                    </table>
-                    <h5>Cleaning Steam Spy Data</h5>
-                    <table class="table table-dark">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Data Cleaning Steps</th>
-                                <th scope="col">Expected Result</th>
-                                <th scope="col">Code Snippet</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Selecting the Columns that we will use</td>
-                                <td>Data with only the selected column</td>
-                                <td>import pandas as pd <br>
-                                    import datetime <br>
-                                    df = pd.read_csv('steam_spy.csv') <br>
-                                    df = df[['appid','name','developer','publisher','price','average_2weeks', <br>
-                                    'average_forever', 'ccu','initialprice','median_2weeks','median_forever', <br>
-                                    'positive','negative','owners']] <br> <br>
-                                    df['price'] = df['price']/100 <br>
-                                    df.to_csv('steam_spy.csv', mode='w',index=False, header=True) <br>
-                                    </td>
-                            </tr>
-                        </tbody>
-                    </table>    
-                    <h5>Dataset Overview</h5> 
-                    1. Steamspy Data. <br><br>
-                    <table class="table table-dark">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Variable</th>
-                                <th scope="col">Data Type</th>
-                                <th scope="col">Description</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>appid</td>
-                                <td>Integer</td>
-                                <td>Unique identifier for the application</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>name</td>
-                                <td>String</td>
-                                <td>Name of the application</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>developer</td>
-                                <td>String</td>
-                                <td>Developer(s) of the application</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">4</th>
-                                <td>publisher</td>
-                                <td>String</td>
-                                <td>Publisher(s) of the application</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">5</th>
-                                <td>price</td>
-                                <td>Float</td>
-                                <td>Current price of the application</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">6</th>
-                                <td>average_2weeks</td>
-                                <td>Integer</td>
-                                <td>Average number of players/usage in the last two weeks</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">7</th>
-                                <td>average_forever</td>
-                                <td>Integer</td>
-                                <td>Average number of players/usage since the application's release</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">8</th>
-                                <td>ccu</td>
-                                <td>Integer</td>
-                                <td>Current number of concurrent users (CCU)</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">9</th>
-                                <td>initialprice</td>
-                                <td>Float</td>
-                                <td>Initial price of the application when it was first released</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">10</th>
-                                <td>median_2weeks</td>
-                                <td>Integer</td>
-                                <td>Median number of players/usage in the last two weeks</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">11</th>
-                                <td>median_forever</td>
-                                <td>Integer</td>
-                                <td>Median number of players/usage since the application's release</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">12</th>
-                                <td>positive</td>
-                                <td>Integer</td>
-                                <td>Number of positive reviews or ratings</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">13</th>
-                                <td>negative</td>
-                                <td>Integer</td>
-                                <td>Number of negative reviews or ratings</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">14</th>
-                                <td>owners</td>
-                                <td>String</td>
-                                <td>Estimated number of owners (or installations) of the application</td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    2. Steam Store Data.<br><br>
-                    <table class="table table-dark">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Variable</th>
-                                <th scope="col">Data Type</th>
-                                <th scope="col">Description</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>steam_appid</td>
-                                <td>Integer</td>
-                                <td>Unique identifier for the application on Steam</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>type</td>
-                                <td>String</td>
-                                <td>Type of the application (e.g., game, software)</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>name</td>
-                                <td>String</td>
-                                <td>Name of the application</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">4</th>
-                                <td>genres</td>
-                                <td>String (array)</td>
-                                <td>Genres or categories that the application belongs to</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">5</th>
-                                <td>release_date</td>
-                                <td>Date</td>
-                                <td>Date of release of the application</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">6</th>
-                                <td>required_age</td>
-                                <td>Integer</td>
-                                <td>Minimum age required to play or use the application</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">7</th>
-                                <td>controller_support</td>
-                                <td>Boolean</td>
-                                <td>Indicates if the application supports controllers</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">8</th>
-                                <td>platforms</td>
-                                <td>String</td>
-                                <td>Platforms supported by the application (e.g., Windows, macOS)</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">9</th>
-                                <td>categories</td>
-                                <td>String</td>
-                                <td>Additional categories or tags associated with the application</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">10</th>
-                                <td>recommendations</td>
-                                <td>Integer</td>
-                                <td>Number of recommendations for the application</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <h5>Tableau Dashboard</h5> 
-                    This page shows us the overview of the data. <br> <br>
-                    <img src="assets/images/tableau1.png" style="width: 100%;" class="img-zoom" alt="Zoomable Image"> <br> <br>
-                    This page shows us the cluster analysis for the data. <br> <br>
-                    <img src="assets/images/tableau2.png" style="width: 100%;" class="img-zoom" alt="Zoomable Image"> <br> <br>
-                    <h5>Exploratory Data Analysis</h5> 
-                    <img src="assets/images/project-1_image2.png" style="width: 100%;" class="img-zoom" alt="Zoomable Image"> <br> <br>
-                    <br> 
-                    There are 85103 number of total store listings, 265560 number of tags, and we have filtered the current number of players & all time high number of players.
-                    <br>
-                    <br>
-                    <br>
-                    <img src="assets/images/project-1_image3.png" style="width: 100%;" class="img-zoom" alt="Zoomable Image"> <br> <br>
-                    <br> 
-                    Based on the number of concurrent user, steam has reached an all time high.
-                    <br>
-                    <br>
-                    <br>
-                    <img src="assets/images/project-1_image4.png" style="width: 100%;" class="img-zoom" alt="Zoomable Image"> <br> <br>
-                    <br> 
-                    Number of the number of unique steam new releases has also reached an all time high.
-                    <br>
-                    <br>
-                    <br>
-                    <img src="assets/images/project-1_image5.png" style="width: 100%;" class="img-zoom" alt="Zoomable Image"> <br> <br>
-                    <br> 
-                    Using Paleto Principle, we can find what games are in demand based on the top 250 games.
-                    <br>
-                    <br>
-                    <br>
-                    <img src="assets/images/project-1_image6.png" style="width: 100%;" class="img-zoom" alt="Zoomable Image"> <br> <br>
-                    <br> 
-                    The general overview of steam library.
-                    <br>
-                    <br>
-                    <br>
-                    <h5>Steam Product Clustering Using K-Means Clustering</h5>
-                    We will cluster the steam products based on All time high peak-player and 24hr peak-players.
-                    <br>
-                    <img src="assets/images/project-1_image7.png" style="width: 100%;" class="img-zoom" alt="Zoomable Image"> <br> <br>
-                    We can determine the number of clusters using the elbow method
-                    <br>
-                    <br>
-                    <img src="assets/images/project-1_image8.png" style="width: 100%;" class="img-zoom" alt="Zoomable Image"> <br> <br>
-                    Silhouette score : 0.6832345
-                    <br>
-                    <br>
-                    Based on the elbow method and silhouette score, we can make 5 clusters based on the silhouette score.
-                    <br>
-                    <br>
-                    <h5>Cluster Analysis</h5>
-                    <br>
-                    <br>
-                    <table class="table table-dark">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Cluster Name</th>
-                                <th scope="col">Average Active Players (24hr)</th>
-                                <th scope="col">Peak Playes</th>
-                                <th scope="col">Description</th>
-                                <th scope="col">Games</th>
-                                <th scope="col">Popular Genres</th>
-                                <th scope="col">Cluster Treatment</th>
-                            </tr>
-                        </thead>
-                        Cluster Characteristics
-                        <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Most Popular Games</td>
-                                <td>365,559</td>
-                                <td>1,585,183</td>
-                                <td>Very High Active Players, Very High Peak</td>
-                                <td>CS2, PUBG, DOTA 2, Baldur’s Gate 3, Lost Ark, Elden Ring, Palword, Cyberpunk 2077</td>
-                                <td>Online Co-op, Multiplayer, Team-Based, Fantasy, Difficult, Co-op, Character customization, Action-RPG.</td>
-                                <td><li>Monitor for changes in the player count. </li><br>
-                                    <li>Use as input for players to recommend similar games. </li><br>
-                                    <li>To increase trust and user retention, make player appreciation events to keep user satisfaction high.</li><br>
-                                    <li>Feature in a steam article or community page on why the games in this clusters are so great.</li><br>
-                                    <li>Can be used as case study for game developers.</li><br>
-                                    </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Popular Games</td>
-                                <td>65,471</td>
-                                <td>378,768</td>
-                                <td>Above Average Active Players, High Peak</td>
-                                <td>Tom Clancy’s Rainbow six Siege, Monster Hunter World, Destiny 2, Team Fortress 2, Path of Exile, etc.</td>
-                                <td>Action, Singleplayer, Multiplayer, Co-op, Atmospheric, Adventure, Shooter, RPG, Action-RPG.</td>
-                                <td><li>Use as input for players to recommend similar games. </li><br>
-                                    <li>Actively promote games in regular days and sales or seasonal campaigns. </li><br>
-                                    <li>Offer the developers a partnership in steam store if, they have multiple games. </li><br>
-                                    <li>Feature in top games in certain genres. </li><br>
-                                    <li>For example, Capcom Developer Game Sales Campaign. </li><br>                         
-                                    </td>
-
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Middle Ground</td>
-                                <td>34,564</td>
-                                <td>109,205</td>
-                                <td>Average Active Players, Average Peak</td>
-                                <td>Last Epoch, Payday2, The Finals, Dragon’s Dogma 2, Total War Warhammer III, Left 4 Dead 2.</td>
-                                <td>Open world, Adventure, Co-op, Simulation, First-person, Sandbox.</td>
-                                <td>
-                                    <li>Feature in stores or sales and seasonal campaigns. </li><br>
-                                    <li>Increase the chance of the game appearing in player storefront. </li><br>
-                                    </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">4</th>
-                                <td>Recommendation Pool</td>
-                                <td>11,177</td>
-                                <td>49,690</td>
-                                <td>Below Average Active Players, Below Average peak</td>
-                                <td>Dying light 2, Mount and Blade II Bannerlord, No man’s sky.</td>
-                                <td>Action, Adventure, Simulation, Open world, Strategy, Co-op, RPG.</td>
-                                <td>
-                                    <li>Encourage the developers to push for updates and help them promote. </li><br>
-                                    <li>Need to increase exposure, since games in this cluster have potential. </li><br>
-                                    <li>Highlight in-game events or new updates in our store banner. </li><br>                                    
-                                    </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">5</th>
-                                <td>The Sleeping Giant</td>
-                                <td>11,689</td>
-                                <td>438,072</td>
-                                <td>Below Average Active Players, Very high peak</td>
-                                <td>New World, Valheim, Among us, Sons of the Forest, Starfield, etc.</td>
-                                <td>Action, co-op, open world, multiplayer, survival.</td>
-                                <td>
-                                    <li>Encourage the developers to update the game or make a sequel by using email or notification through steam. </li><br>
-                                    <li>Feature in a new kind of sales event, something called “run it back” campaign to feature games in this cluster.</li><br>
-                                    <li>Make sure to also give discounts to similar games in that campaign.</li><br>
-                                    </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <h5>Insights & Recommendations</h5> <br> <br>
-                    Based on the result of our Exploratory Data Analysis and Cluster Analysis, there are a few recommendations that we can employ: <br>
-                    <li>Product Recommendation System. </li><br>
-                    By using the clusters, we can make recommendations based on what's popular. <br>
-                    We can use the higher tier clusters exposure to show similar games. <br>
-                    <img src="assets/images/project-1_image9.png" style="width: 100%;" class="img-zoom" alt="Zoomable Image"> <br> <br>
-                    <img src="assets/images/project-1_image10.png" style="width: 100%;" class="img-zoom" alt="Zoomable Image"> <br> <br>
-                    <li>Steam Storefront Optimization. </li><br>
-                    To enhance our storefront, we can employ a combination of recommendation systems based on clusters and recommendations derived from game reviews.
-                    <img src="assets/images/project-1_image11.png" style="width: 100%;" class="img-zoom" alt="Zoomable Image"> <br> <br>
-                    <h5>Impact Analysis</h5>
-                    <img src="assets/images/project-1_image12.png" style="width: 100%;" class="img-zoom" alt="Zoomable Image"> <br> <br>
-                </div>
-                </div>
-            </div>
-        </div>
-        <!--Modal End Project 1-->
-
-        <!--Modal Start Project 2-->
-        <!-- Vertically centered scrollable modal -->
-        <div class="modal fade" id="modal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class = "modal-dialog modal-dialog-centered modal-lg">
-                <div class="modal-content">
-                    <div class = "modal-header"><h1>Steam's Web API Data Parsing</h1></div>
-                    <br><br>
-                    <img src="assets/images/project-2-background.jpg" style="width: 99%; margin: 0 auto;">
-                    <div class = "modal-body">
-                        <h5>About</h5> 
-                                Part of my Data End to End Project Portfolio, we were required to gather our own data and make our own analysis.
-                                As part of my data gathering process, I choose to utilize the steam public API. By pulling publically available data, I not only aim to simply find data, 
-                                but I also want to process data in its most raw state. So I could utilize my understanding of APIs, data parsing, and how to transform .json data to .csv data.
-                                <br><br>
-                                This Project aims to showcase my understanding of API implementation to pull data from 
-                                steam to support my project in analyzing the current gaming trends. 
-                                By implementing Python, HTTP requests library, I have successfully managed to pull data from Steam API.
-                                <br><br>
-                                <h5>Objective</h5> 
-                                Getting the necessary data, preparing the data for analysis, turning .JSON into .csv with data parser.
-                        <br><br>
-                        <h5>Steps to take & Considerations</h5>
-                                Since this is a product analysis project, we need data for steam products, which are games. What we can do is gather the data from 2 public APIs.
-                                There are 2 APIs that we can gather data from:
-                                <li>SteamSpy API</li>
-                                1. Gather Raw Data <br>
-                                2. Use Data Parser to turn API response into .json files <br>
-                                3. Create a python script to turn combine the data into one file, and using dataframe, write them into .csv files. <br>
-                                <li>Steam Store API</li>
-                                1. By using APP ID, we can get game details. <br>
-                                2. Use Data Parser to turn API response into .csv files <br>
-                                3. Create a python script to turn combine the data into one file, and using dataframe, write them into .csv files. <br>
-                        <br>
-                        <h5>Execution</h5> 
-                        <br>
-                        Code #1 <br>
-                        With this code, we will extract the data using Python with the library steamspypi. <br>
-                          <div class="row">
-                            <div class="col">
-                                <div class="card card-body">
-
-                            <pre>
-                            <code>
-        # standard library imports
-        import datetime as dt
-                                            
-        # third-party imports
-        import numpy as np
-        import pandas as pd
-        import steamspypi
-                                            
-        data = steamspypi.download_all_pages(num_pages=100)
-                                        </code>
-                                    </pre>
-                                </div>
-                                <br>
-                                <h5>Result:</h5>
-                                <br>
-                                <br>
-                                <br>
-                                <img src = assets/images/project-2_image1.png style="width: 100%;" class="img-zoom" alt="Zoomable Image"> <br> <br>
-                                <br>
-                                <br>
-                                <br>
-                                This file contains the <span class="text-brand">raw data</span> from the API in the form of <span class="text-brand">.json</span>. <br>
-                                What we need to do is <span class="text-brand">combine the data</span> and <span class="text-brand">turn the format into .csv</span>.
-                                <br><br>Code #2
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="card card-body">
-                                    <pre>
-                                    <code>
-        # standard library imports
-        import csv
-        import datetime as dt
-        import json
-        import os
-        import statistics
-        import time
-
-        # third-party imports
-        import numpy as np
-        import pandas as pd
-        import steamspypi
-
-        for i in range (0,30):
-            page_name = '20240309_steamspy_page_' + str(i) + '.json'
-            csv_name = 'csvfile_' + str(i) + '.csv'
-            with open(page_name, encoding='utf-8') as inputfile:
-                df = pd.read_json(inputfile)
-                New_df=df.T.groupby(level=0).agg(lambda x : x.values.tolist()).stack().apply(pd.Series).unstack().sort_index(level=1,axis=1)
-                New_df.columns=New_df.columns.droplevel(level=0)
-                New_df = New_df.reset_index()
-                New_df.drop(['index'], axis=1, inplace=True)
-                print(New_df)
-            New_df.to_csv('test.csv', mode='a', index=False, header=False)
-                                                </code>
-                                            </pre>
-                                        </div>
-                                        <br>
-                                        <h5>Result:</h5>
-                                        <br>
-                                        <br>
-                                        <br>
-                                        <br>
-                                        <img src = assets/images/project-2_image2.png style="width: 100%;"  class="img-zoom" alt="Zoomable Image"> <br> <br>
-                                        <br>
-                                        <br>
-                                        <br>
-                                        With this, we have gathered the data from SteamSpy, this data contains information about: <br>
-                                        appid, <br>
-                                        name, <br>
-                                        developer, <br>
-                                        publisher, <br>
-                                        score_rank, <br>
-                                        positive, <br>
-                                        negative, <br>
-                                        userscore, <br>
-                                        owners, <br>
-                                        average_forever, <br>
-                                        average_2weeks, <br>
-                                        median_forever, <br>
-                                        median_2weeks, <br>
-                                        price, <br>
-                                        initialprice, <br>
-                                        discount, <br>
-                                        languages, <br>
-                                        genre, <br>
-                                        ccu, <br>
-                                        tags <br>
-                                        <br>
-                                        Our next step will be to use the appid gathered from steamspy to pull data from Steam Store. <br>
-                                        We can do that with the following script: <br> <br>
-                                        <div class="row">
-                                            <div class="col">
-                                                <div class="card card-body">
-                
-                                <pre>
-                                    <code>
-        import os
-        import pandas as pd
-        import requests
-
-        def get_game_details(app_id):
-            url = f"https://store.steampowered.com/api/appdetails?appids={app_id}"
-            response = requests.get(url)
-            data = response.json()
-
-            # Check if the request was successful and data is available
-            if str(app_id) in data and data[str(app_id)]['success']:
-                game_data = data[str(app_id)]['data']
-
-                # Initialize details dictionary with default values
-                details = {
-                    'type': game_data.get('type', ''),
-                    'name': game_data.get('name', ''),
-                    'steam_appid': game_data.get('steam_appid', ''),
-                    'required_age': game_data.get('required_age', ''),
-                    'controller_support': game_data.get('controller_support', ''),
-                    'dlc': game_data.get('dlc', ''),
-                    'detailed_description': game_data.get('detailed_description', ''),
-                    'about_the_game': game_data.get('about_the_game', ''),
-                    'short_description': game_data.get('short_description', ''),
-                    'fullgame': game_data.get('fullgame', ''),
-                    'supported_languages': game_data.get('supported_languages', ''),
-                    'header_image': game_data.get('header_image', ''),
-                    'website': game_data.get('website', ''),
-                    'pc_requirements': game_data.get('pc_requirements', ''),
-                    'mac_requirements': game_data.get('mac_requirements', ''),
-                    'linux_requirements': game_data.get('linux_requirements', ''),
-                    'legal_notice': game_data.get('legal_notice', ''),
-                    'drm_notice': game_data.get('drm_notice', ''),
-                    'ext_user_account_notice': game_data.get('ext_user_account_notice', ''),
-                    'developers': game_data.get('developers', ''),
-                    'publishers': game_data.get('publishers', ''),
-                    'demos': game_data.get('demos', ''),
-                    'price': game_data['price_overview']['final_formatted'] if 'price_overview' in game_data else 
-                            ('0' if game_data.get('is_free', False) else 'price not available')
-                }
-
-                return details
-
-            else:
-                return 'Details not found'
-
-                # Read the existing CSV file
-                app_details = "app_details.csv"
-                index_file = "index.csv"
-                exists = os.path.isfile(app_details)
-                # Create an empty list to store game details
-                game_details_list = []
-                df = pd.read_csv("app_list.csv")
-                # Iterate over each row in the DataFrame
-                for i in range(len(df)):
-                app_id = df["appid"][i]
-                game_details = get_game_details(app_id)
-                game_details_list.append(game_details)
-                # Convert the list of dictionaries into a DataFrame
-                game_details_df = pd.DataFrame(game_details_list)
-                # Add column names to the game details DataFrame
-                column_names = ['type', 'name', 'steam_appid', 'required_age', 'controller_support', 'dlc',
-                'detailed_description', 'about_the_game', 'short_description', 'fullgame',
-                'supported_languages', 'header_image', 'website', 'pc_requirements',
-                'mac_requirements', 'linux_requirements', 'legal_notice', 'drm_notice',
-                'ext_user_account_notice', 'developers', 'publishers', 'demos', 'price']
-                game_details_df.columns = column_names
-                # Write to the CSV file
-                if not exists:
-                # Write both column names and details
-                game_details_df.to_csv(app_details, mode='w', header=True, index=False)
-                else:
-                # Append details only
-                game_details_df.to_csv(app_details, mode='a', header=False, index=False)
-                # Save index to a separate file
-                if not exists:
-                index_df = pd.DataFrame(df.index, columns=['index'])
-                index_df.to_csv(index_file, index=False)
-                                                </code>
-                                            </pre>
-                                        </div>
-                                        <br> <br>
-                                        <h5>Result :</h5>
-                                        <br>
-                                        <br>
-                                        <br>
-                                        <br>
-                                        <img src = assets/images/project-2_image3.png style="width: 100%;"  class="img-zoom" alt="Zoomable Image"> <br> <br>
-                                        <br>
-                                        <br>
-                                        <br>
-                                        <br>
-                                        With this, we have the data taken from steam store. And with this, we have the necessary data for our analysis.
-                                        <br>
-                                        <br>
-                                    </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--Modal End Project 2-->
-
-        <!--Modal Start Project 3-->
-        <!-- Vertically centered scrollable modal -->
-        <div class="modal fade" id="modal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header"><h5>RevoBank Customer Analysis</h5></div>
-                    <br><br>
-                    <img src="assets/images/project-3-background.png" style="width: 100%;">
-                    <div class="modal-body">
-                        <h5>About</h5>
-                        This Project was made as the individual project during the Python module in RevoU. In this module, we applied what we learned with Python and what it can do in data analysis, visualization, and an application of machine learning. As a data analyst, we can evaluate the customer's value based on a few metrics. <br> <br>
-
-                        <h5>Objective</h5>
-                        Today's date is January 31, 2023, and you're a data analyst at RevoBank, a bank based in Europe. You're currently working with the Performance Management (PM) team, whose goal is to encourage existing customers to use RevoBank credit card products more. <br>
-                        You've received a data summary from the MIS (Management Information System) team, detailing clients and their sales over the last three years (36 months). Your manager has tasked you with summarizing the sales performance from the past three years and creating user personas based on the existing clients. <br> <br>
-                        
-                        <h5>Steps to take & Considerations</h5>
-                        The goal of this analysis is to understand patterns and trends of customer segmentations, create actionable insights, and identify business opportunities to optimize performance and decision-making. <br> <br>
-                        
-                        <h5>Dataset Overview</h5>
-                        <table class="table table-dark">
-                            <thead>
-                              <tr>
-                                <th>Column</th>
-                                <th>Data Type</th>
-                                <th>Description</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <td>account_id</td>
-                                <td>string</td>
-                                <td>Account ID</td>
-                              </tr>
-                              <tr>
-                                <td>account_activity_level</td>
-                                <td>string</td>
-                                <td>"A three-level categorical variable that codes the activity of each account.
-                                  X high activity.
-                                  Y average activity.
-                                  Z low activity."</td>
-                              </tr>
-                              <tr>
-                                <td>customer_value_level</td>
-                                <td>string</td>
-                                <td>A five-level (A-E) categorical variable that codes customer value. For example, the most profitable and creditworthy customers are coded with an A.</td>
-                              </tr>
-                              <tr>
-                                <td>MOB</td>
-                                <td>int</td>
-                                <td>Customer tenure in months</td>
-                              </tr>
-                              <tr>
-                                <td>flag_female</td>
-                                <td>int</td>
-                                <td>A categorical variable that is 1 if the account holder of the account if female and 0 otherwise.</td>
-                              </tr>
-                              <tr>
-                                <td>avg_sales_L36M</td>
-                                <td>float</td>
-                                <td>Average sales amount attributed to each account over the past three years</td>
-                              </tr>
-                              <tr>
-                                <td>cnt_sales_L36M</td>
-                                <td>int</td>
-                                <td>Number of products purchased in the past three years</td>
-                              </tr>
-                              <tr>
-                                <td>avg_sales_L36M_promo</td>
-                                <td>float</td>
-                                <td>Average sales amount attributed to each account in the past three years in response to a direct promotion</td>
-                              </tr>
-                              <tr>
-                                <td>cnt_sales_L36M_promo</td>
-                                <td>int</td>
-                                <td>Number of products purchased in the previous three years in response to a direct promotion</td>
-                              </tr>
-                              <tr>
-                                <td>last_sales</td>
-                                <td>float</td>
-                                <td>Amount of the last product purchased</td>
-                              </tr>
-                              <tr>
-                                <td>month_since_last_sales</td>
-                                <td>int</td>
-                                <td>Months since the last product purchase</td>
-                              </tr>
-                              <tr>
-                                <td>count_direct_promo_L12M</td>
-                                <td>int</td>
-                                <td>Number of direct promotions (e-mail, SMS, etc.) received by each account in the past year</td>
-                              </tr>
-                              <tr>
-                                <td>birth_date</td>
-                                <td>datetime</td>
-                                <td>Date of birth of account holder</td>
-                              </tr>
-                            </tbody>
-                          </table>
-                          <h5>Steps to take & Considerations</h5>
-
-                          <br>
-                          <br>
-                          <img src = assets/images/project-3_image1.png style="width: 100%;" class="img-zoom" alt="Zoomable Image"> <br> <br>
-  
-                          1. Data Cleaning must be done to ensure that noise data and outliers doesn't affect the results in a significant way.<br> <br>
-                          2. Exploratory Data Analysis (EDA), hypothesis testing, and deriving insights and recommendations are integral stages in the analytical process, each playing a crucial role in extracting meaningful information from data. EDA involves examining the dataset through various graphical and statistical methods to uncover patterns, anomalies, and relationships among variables. It helps analysts understand the data's distribution, outliers, and potential biases, providing a foundation for further investigation. <br> <br>
-                          3. Customer segmentation allows us to segment customers based on their value, age, background, etc <br> <br>
-                          4. Cluster interpertation allows us to fully understand each clusters based on their Characteristics. <br> <br>
-                          5. Deriving insights and recommendations is the culmination of EDA and hypothesis testing. It involves interpreting the findings in the context of the problem or question at hand, drawing meaningful conclusions, and proposing actionable recommendations based on the data analysis. These recommendations could range from operational improvements to strategic decisions, depending on the insights uncovered during the analytical process. <br> <br>
-                          <br> <br>
-                          <h5>Execution</h5>
-                          <h6>Data Cleaning</h6>
-                          <table class="table table-dark">
-                            <thead>
-                              <tr>
-                                <th>Steps</th>
-                                <th>Code Snippet</th>
-                                <th>Considerations</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <td>Changing Data Types</td>
-                                <td>df['account_id'] = df['account_id'].astype(str);<br>df['birth_date'] = pd.to_datetime(df['birth_date'], format='%Y-%m-%d')</td>
-                                <td>ID is changed to string because it will not be used in calculations.<br>Birthdate needs to be converted to date format.</td>
-                              </tr>
-                              <tr>
-                                <td>Removing customers below 21 years old</td>
-                                <td>df['age'] = (pd.Timestamp('now') - df['birth_date']) // pd.Timedelta(days=365.25);<br>df = df[df['age'] >= 21]</td>
-                                <td>Filtering out customers younger than 21 years old based on birthdate.</td>
-                              </tr>
-                              <tr>
-                                <td>Check for Duplicates</td>
-                                <td>df[df['account_id'].duplicated()]</td>
-                                <td>Ensure no duplicate account IDs exist in the dataset.</td>
-                              </tr>
-                              <tr>
-                                <td>Impute or Remove Invalid Data</td>
-                                <td>df = df[~df['customer_value_level'].str.contains('F')];<br>df = df[~df['account_activity_level'].str.contains('XYZ')];<br>df.loc[df['avg_sales_L36M'] < 0, 'avg_sales_L36M'] = df.loc[df['avg_sales_L36M'] < 0, 'last_sales']</td>
-                                <td>Filter out rows where customer value level contains 'F' or account activity level contains 'X', 'Y', or 'Z'.<br>Replace negative values in 'avg_sales_L36M' with corresponding 'last_sales' values.</td>
-                              </tr>
-                              <tr>
-                                <td>Removing Outliers</td>
-                                <td>df = df[df['avg_sales_L36M'] <= 30000]</td>
-                                <td>Filter out rows where 'avg_sales_L36M' exceeds 30,000 to handle outliers.</td>
-                              </tr>
-                            </tbody>
-                          </table>
-                          <h5>Exploratory Data Analysis</h5>
-                          <img src = assets/images/project-3_image2.png style="width: 100%;" class="img-zoom" alt="Zoomable Image"> <br> <br>
-                          <img src = assets/images/project-3_image3.png style="width: 100%;" class="img-zoom" alt="Zoomable Image"> <br> <br>
-                          <img src = assets/images/project-3_image4.png style="width: 100%;" class="img-zoom" alt="Zoomable Image"> <br> <br>
-                          <img src = assets/images/project-3_image5.png style="width: 100%;" class="img-zoom" alt="Zoomable Image"> <br> <br>
-                          <img src = assets/images/project-3_image6.png style="width: 100%;" class="img-zoom" alt="Zoomable Image"> <br> <br>
-                          <img src = assets/images/project-3_image7.png style="width: 100%;" class="img-zoom" alt="Zoomable Image"> <br> <br>
-                          <img src = assets/images/project-3_image8.png style="width: 100%;" class="img-zoom" alt="Zoomable Image"> <br> <br>
-                          <img src = assets/images/project-3_image9.png style="width: 100%;" class="img-zoom" alt="Zoomable Image"> <br> <br>
-                          <h5>Customer Segmentation</h5>
-                          Before we begin the clustering process, we take out the outliers. <br>
-                          Afterwards, we apply the segmentation.
-                          <img src = assets/images/project-3_image10.png style="width: 100%;" class="img-zoom" alt="Zoomable Image"> <br> <br>
-                          After getting 3 clusters, we can add the outliers as its own cluster and analyze it accordingly.
-                          <img src = assets/images/project-3_image11.png style="width: 100%;" class="img-zoom" alt="Zoomable Image"> <br> <br>
-                          <h5>Cluster Characteristics</h5>
-                          <img src = assets/images/project-3_image12.png style="width: 100%;" class="img-zoom" alt="Zoomable Image"> <br> <br>
-                          <h5>Cluster Treatment</h5>
-                          <table class="table table-dark">
-                            <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Cluster Description</th>
-                                    <th scope="col">Recommendation</th>
-                                    <th scope="col">Expected Result</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Old Accounts with medium Frequency of Transaction but high value per transaction.</td>
-                                    <td>Loyalty Program, offer higher tier of credit card, & credit Benefit Promotions</td>
-                                    <td>Given these are older accounts with ma high value per transacion, we should aim to reward their Loyalty by them a higher tier credit card that they can use and offer them premium services. Introducing a premium feature and rewards can encourage more transactions from this cluster. </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Oldest Accounts with high Frequency of Transaction but lowest value per transaction. </td>
-                                    <td>Streamline Transaction Process and offer bundles.</td>
-                                    <td>Since their transaction frequency is already high anyway, we should focus on streamlining their transacions in order to keep their frequency high, and offer bundles to increase value per transaction.</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>Medium Age Accounts with medium frequency, medium value per transaction.</td>
-                                    <td>Onboarding Process & Long-Term Relations Building</td>
-                                    <td>We should focus our attention to enchance their customer experience during the onboarding process to build brand loyalty. And consider building a customer to brand relationship that goes beyond simply transactions. Conside appreciation programs.</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">4</th>
-                                    <td>The Outliers, with very high value per transactions.</td>
-                                    <td>Offer Exclusive Offers & Rewards</td>
-                                    <td>Recognize their high-value status by offering exclusive offers, rewards, or VIP treatment. This could include access to limited edition products, invitations to exclusive events, or personalized thank-you gestures.</td>
-                            </tbody>
-                        </table>                        
-                        </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-        </div>
-        <!--Modal End Project 3-->
-        
-        <!--Modal Start Project 4-->
-        <!-- Vertically centered scrollable modal -->
-        <div class="modal fade" id="modal4" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header"><h5>TokoBli Twin Date Campaign Analysis</h5></div>
-                    <br><br>
-                    <img src="https://gananjayaivan.github.io/portfolio/assets/images/project-4-background.png" style="width: 99%; margin: 0 auto;">
-                    <div class="modal-body">
-                        <h5>About</h5>
-                        This Project was made as the individual project during the Statistics and Spreadsheet module in RevoU. In this module, we applied what we learned in statistical concepts such as Hypothesis and regression testing, and we used spreadsheet to do our analysis. Our responsibility as a data analyst is to To evaluate the performance, seek insights, for each scenarios based on the data gathered from the 3 campaigns so that we can make more informed business decisions for future campaigns.
-                        <br> <br>
-                        <h5>Objective</h5>
-                        1. Evaluate which campaigns generates the most revenues, has the highest amount of discount and to compare each campaign’s performance to one another.
-                        <br> <br>
-                        2. To give us an overview of the top 3-5 (Depending on the results) best performing products during the campaign based on revenue generated (Most Profitable) and number of transactions (Most Popular) for each campaign. To check the return of investments (ROI) of each product category.
-                        <br> <br>
-                        3. By calculating ROI, we can identify which products are the most profitable with each units sold.
-                        <br>
-                        <br>
-                        <h5>Dataset Overview</h5>
-                        <table class="table table-dark">
-                            <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Variable</th>
-                                    <th scope="col">Data Type</th>
-                                    <th scope="col">Description</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Transaction ID</td>
-                                    <td>Categorical</td>
-                                    <td>Unique identifier of a transaction</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Product ID</td>
-                                    <td>Numerical</td>
-                                    <td>Unique identifier of a product</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>Customer ID</td>
-                                    <td>Numerical</td>
-                                    <td>Unique identifier of a customer</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">4</th>
-                                    <td>Gender</td>
-                                    <td>Categorical</td>
-                                    <td>F: Female, M: Male</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">5</th>
-                                    <td>Status</td>
-                                    <td>Categorical</td>
-                                    <td>Order status</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">6</th>
-                                    <td>Created At</td>
-                                    <td>Date</td>
-                                    <td>Transaction date</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">7</th>
-                                    <td>Campaign</td>
-                                    <td>Categorical</td>
-                                    <td>Campaign period</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">8</th>
-                                    <td>SKU</td>
-                                    <td>Categorical</td>
-                                    <td>Product SKU</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">9</th>
-                                    <td>Price</td>
-                                    <td>Numerical</td>
-                                    <td>Product price (IDR)</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">10</th>
-                                    <td>QTY</td>
-                                    <td>Numerical</td>
-                                    <td>Product quantity (Unit)</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">11</th>
-                                    <td>Discount</td>
-                                    <td>Numerical</td>
-                                    <td>Product discount (IDR)</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">12</th>
-                                    <td>Shipping Cost</td>
-                                    <td>Numerical</td>
-                                    <td>Product shipping cost (IDR)</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">13</th>
-                                    <td>Total Revenue</td>
-                                    <td>Numerical</td>
-                                    <td>Total amount spent (IDR)</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">14</th>
-                                    <td>Category Name</td>
-                                    <td>Categorical</td>
-                                    <td>Category of product</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">15</th>
-                                    <td>Payment Method</td>
-                                    <td>Categorical</td>
-                                    <td>Method of payment</td>
-                                </tr>
-                            </tbody>
-                        </table>                        
-                        <br>
-                        <h5>Steps to take & Considerations</h5>
-
-                        <br>
-                        <br>
-                        <img src = assets/images/project-4_image1.png style="width: 100%;" class="img-zoom" alt="Zoomable Image"> <br> <br>
-
-                        1. Data Cleaning must be done to ensure that noise data and outliers doesn't affect the results.<br> <br>
-                        2. Descriptive Analytics helps us find information about the data such as central tendency (mean, median, mode), dispersion (range, variance, standard deviation), and distribution (skewness, kurtosis). By examining these metrics, analysts can gain a deeper understanding of the dataset's structure and patterns. <br> <br>
-                        3. Exploratory Data Analysis (EDA), hypothesis testing, and deriving insights and recommendations are integral stages in the analytical process, each playing a crucial role in extracting meaningful information from data. EDA involves examining the dataset through various graphical and statistical methods to uncover patterns, anomalies, and relationships among variables. It helps analysts understand the data's distribution, outliers, and potential biases, providing a foundation for further investigation. <br> <br>
-                        4. Hypothesis testing, on the other hand, is used to validate assumptions or theories about the data. It involves formulating a hypothesis, typically stating a null hypothesis (no effect or relationship) and an alternative hypothesis (some effect or relationship exists), and then using statistical tests to determine the likelihood of the observed results occurring by chance. This rigorous process helps confirm or refute hypotheses, providing statistical evidence to support decision-making. <br> <br>
-                        5. Deriving insights and recommendations is the culmination of EDA and hypothesis testing. It involves interpreting the findings in the context of the problem or question at hand, drawing meaningful conclusions, and proposing actionable recommendations based on the data analysis. These recommendations could range from operational improvements to strategic decisions, depending on the insights uncovered during the analytical process. <br> <br>
-                        <br> <br>
-                        <h5>Execution</h5>
-                        <br>
-                        <h6> Data Cleaning Process </h6>
-                        In this stage, we need to make sure the data is clean by removing rows and columns missing and duplicate data, changing the data into appropiate type, imputing missing data, and adding new KPI for analysis.
-                        <br>
-                        <br>
-                        <table class="table table-dark">
-                            <thead>
-                              <tr>
-                                <th>No</th>
-                                <th>Action</th>
-                                <th>Reasoning</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <td>1</td>
-                                <td>Remove rows and columns with missing data</td>
-                                <td>With only 54 entries out of 10160, the status column will be removed.</td>
-                              </tr>
-                              <tr>
-                                <td>2</td>
-                                <td>Remove rows with duplicated data</td>
-                                <td>By using transaction id, we can remove duplicated data.</td>
-                              </tr>
-                              <tr>
-                                <td>3</td>
-                                <td>Change data type of columns that is not suitable</td>
-                                <td>Changing the type of column for price, discount, and total revenue columns to Currency (IDR).</td>
-                              </tr>
-                              <tr>
-                                <td>4</td>
-                                <td>Impute Missing Data</td>
-                                <td>Using these formulas:
-                                  <ul>
-                                    <li>Revenue = (Price * Quantity) - Discount</li>
-                                    <li>Price = (Revenue + Discount) / Quantity</li>
-                                    <li>Quantity = (Revenue + Discount) / Price</li>
-                                    <li>Discount = (Price * Quantity) - Revenue</li>
-                                  </ul>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>5</td>
-                                <td>Adding new KPI for analysis</td>
-                                <td>We can calculate ROI based on: Revenue / Discount</td>
-                              </tr>
-                            </tbody>
-                          </table>
-                            
-                        <br>
-                        <br>
-                        <h6>Descriptive Analysis</h6>
-                        To eliminate outliers and to check the data skewness, we can use the candle chart and a histogram for skewness.
-                        <br>
-                        <br>
-                        <img src = assets/images/project-4_image4.png style="width: 100%;" class="img-zoom" alt="Zoomable Image">
-                        <br> <br>
-                        <h6>Exploratory Data Analysis</h6>
-                        <h7>First, we can compare a few things between the 3 campaigns: <br>
-                        transactions, revenue, expenses, ROI, and products sold.</h7>
-                        <br> <br>
-                        <br>
-                        <br>
-                        <img src = assets/images/project-4_image5.png style="width: 100%;" class="img-zoom" alt="Zoomable Image">
-                        <h6> <br>Insights <br></h6>
-                        <li>Transaction wise, there are almost the same across all 3 campaigns with a less than 5% difference. <br>  </li>
-                        <li>The return of interest shows us that out of all the 3 campaigns, Campaign 12/12 was the most optimized in terms of ROI.</li>
-                        <li>Revenue wise, the most profitable campaign was the 11/11 campaign, with the least amount of transaction and the highest expenses out of all three campaigns. <br> </li>
-                        <br> <br>
-                        <h6>Comparing Customer's Performance by gender <br></h6>
-                        <br>
-                        <br>   
-                        <img src = assets/images/project-4_image6.png style="width: 100%;" class="img-zoom" alt="Zoomable Image">
-                        <br>
-                        <br>  
-                        <h6> <br>Insights <br></h6>
-                            Overall, our male customers have a higher return of interest compared to the female customers.
-                            <br> <br>
-                        <h6>Comparing Product Categories per Campaign <br></h6>
-                        <br>
-                        <br>  
-                        <img src = assets/images/project-4_image7.png style="width: 100%;" class="img-zoom" alt="Zoomable Image">
-                        <br>
-                        <br>    
-                        <h6> <br>Insights <br></h6>
-                            Overall, the most popular and most profitable product categories are Men’s Fashion, Beauty & Grooming, and Superstore.
-                            Campaign 11/11 most profitable product category by far is men’s fashion. <br><br>
-                        <h6>Most Profitable Category Overall<br></h6>
-                        <br>
-                        <br>
-                        <img src = assets/images/project-4_image8.png style="width: 100%;" class="img-zoom" alt="Zoomable Image">
-                        <br>
-                        <br>   
-                        <h6> <br>Insights <br></h6>
-                            The most profitable product categories are men’s fashion, appliances, and books. <br><br>
-                        <h6>Summary</h6><br>
-                        <br>    
-                        <img src = assets/images/project-4_image9.png style="width: 100%;" class="img-zoom" alt="Zoomable Image">
-                        <br>
-                        <br>
-                        <br>
-                        <br><h6>Hypothesis Testing</h6><br>
-                            <img src = assets/images/project-4_image10.png style="width: 100%;" class="img-zoom" alt="Zoomable Image">
-                            <img src = assets/images/project-4_image11.png style="width: 100%;" class="img-zoom" alt="Zoomable Image">
-                            <img src = assets/images/project-4_image12.png style="width: 100%;" class="img-zoom" alt="Zoomable Image">
-                            <br>
-                            <br>
-                            <br>    
-                        <br><h6>Business Reccomendations</h6><br>
-                        <img src = assets/images/project-4_image13.png style="width: 100%;" class="img-zoom" alt="Zoomable Image">
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-        </div>
-        
-        <!--Modal End Project 4-->
 
         <!-- Projects -->
         <section id="projects" class="full-height px-lg-5">
             <div class="container">
-
                 <div class="row pb-4" data-aos="fade-up">
                     <div class="col-lg-8">
                         <h6 class="text-brand">WORK</h6>
                         <h1>My Recent Projects</h1>
                     </div>
                 </div>
-
+                
                 <div class="row gy-4">
 
                     <div class="col-md-6" data-aos="fade-up">
@@ -1585,8 +416,8 @@
                                     Product Segmentation
                                   </div>
                                   <br> <br>
-                                  <a href="#" data-bs-toggle="modal" data-bs-target="#modal1" button type="button" class="btn btn-warning btn-sm">Read More ...</button>
-                                  </a>
+                            <!-- Trigger Button -->
+                            <a href="#" class="openModal btn btn-warning btn-sm" data-modal-id="modal1">Read More ...</a>
                             </div>
                         </div>
                     </div>
@@ -1618,12 +449,14 @@
                                     ETL
                                   </div>
                                 <br> <br>
-                                <a href="#" data-bs-toggle="modal" data-bs-target="#modal2" button type="button" class="btn btn-warning btn-sm">Read More ...</button>
-                               </a>
+                            <!-- Trigger Button -->
+                            <a href="#" class="openModal btn btn-warning btn-sm" data-modal-id="modal2">Read More ...</a>
+                                </a>
                             </div>
                         </div>
                     </div>
-
+                    <div id="modal-container"></div>
+                    
                     <div class="col-md-6" data-aos="fade-up">
                         <div class="card-custom rounded-4 bg-base shadow-effect">
                             <div class="card-custom-image rounded-4">
@@ -1644,7 +477,8 @@
                                     Statistics
                                   </div>
                                   <br> <br>
-                                <a href="#" data-bs-toggle="modal" data-bs-target="#modal3" button type="button" class="btn btn-warning btn-sm">Read More ...</button>
+                            <!-- Trigger Button -->
+                            <a href="#" class="openModal btn btn-warning btn-sm" data-modal-id="modal3">Read More ...</a>
                                 </a>
                             </div>
                         </div>
@@ -1673,7 +507,11 @@
                                   </div>
 
                                   <br> <br>
-                                <a href="#" data-bs-toggle="modal" data-bs-target="#modal4" button type="button" class="btn btn-warning btn-sm">Read More ...</button>
+                        <!-- Trigger Button -->
+                        <a href="#" class="openModal btn btn-warning btn-sm" data-modal-id="modal4">Read More ...</a>
+
+                            <!-- Modal Container -->
+                            <div id="modal-container"></div>
                                 </a>
                             </div>
                         </div>
@@ -1683,7 +521,6 @@
             </div>
         </section>
         <!-- FOOTER -->
-
         <footer class="py-5 px-lg-5">
             <div class="container">
                 <div class="row gy-4 justify-content-between">
@@ -1705,6 +542,33 @@
 
     </div>
     <!-- //CONTENT WRAPPER -->
+    <script>
+        // Get all elements with the 'openModal' class and attach event listeners
+        document.querySelectorAll('.openModal').forEach(function (element) {
+            element.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                // Get the modal ID from the clicked element's data attribute
+                var modalId = this.getAttribute('data-modal-id');
+                
+                // Dynamically build the modal file name
+                var modalFile = modalId + '.html';
+                
+                // Fetch the corresponding modal HTML file
+                fetch(modalFile)
+                    .then(response => response.text())
+                    .then(data => {
+                        // Insert the modal content into the placeholder
+                        document.getElementById('modal-container').innerHTML = data;
+                        
+                        // Initialize and show the modal
+                        var myModal = new bootstrap.Modal(document.getElementById(modalId));
+                        myModal.show();
+                    });
+            });
+        });
+    </script>
+    
     <script src="./assets/js/bootstrap.bundle.min.js"></script>
     <script src="./assets/js/aos.js"></script>
     <script src="./assets/js/main.js"></script>
