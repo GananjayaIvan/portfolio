@@ -1,0 +1,244 @@
+<!-- modal2.html -->
+<div class="modal fade" id="modal2" tabindex="-1" aria-labelledby="modal2Label" aria-hidden="true">
+    <div class = "modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class = "modal-header"><h1>Steam's Web API Data Parsing</h1></div>
+            <br><br>
+            <img src="assets/images/project-2-background.jpg" style="width: 99%; margin: 0 auto;">
+            <div class = "modal-body">
+                <h5>About</h5> 
+                        Part of my Data End to End Project Portfolio, we were required to gather our own data and make our own analysis.
+                        As part of my data gathering process, I choose to utilize the steam public API. By pulling publically available data, I not only aim to simply find data, 
+                        but I also want to process data in its most raw state. So I could utilize my understanding of APIs, data parsing, and how to transform .json data to .csv data.
+                        <br><br>
+                        This Project aims to showcase my understanding of API implementation to pull data from 
+                        steam to support my project in analyzing the current gaming trends. 
+                        By implementing Python, HTTP requests library, I have successfully managed to pull data from Steam API.
+                        <br><br>
+                        <h5>Objective</h5> 
+                        Getting the necessary data, preparing the data for analysis, turning .JSON into .csv with data parser.
+                <br><br>
+                <h5>Steps to take & Considerations</h5>
+                        Since this is a product analysis project, we need data for steam products, which are games. What we can do is gather the data from 2 public APIs.
+                        There are 2 APIs that we can gather data from:
+                        <li>SteamSpy API</li>
+                        1. Gather Raw Data <br>
+                        2. Use Data Parser to turn API response into .json files <br>
+                        3. Create a python script to turn combine the data into one file, and using dataframe, write them into .csv files. <br>
+                        <li>Steam Store API</li>
+                        1. By using APP ID, we can get game details. <br>
+                        2. Use Data Parser to turn API response into .csv files <br>
+                        3. Create a python script to turn combine the data into one file, and using dataframe, write them into .csv files. <br>
+                <br>
+                <h5>Execution</h5> 
+                <br>
+                Code #1 <br>
+                With this code, we will extract the data using Python with the library steamspypi. <br>
+                  <div class="row">
+                    <div class="col">
+                        <div class="card card-body">
+
+                    <pre>
+                    <code>
+# standard library imports
+import datetime as dt
+                                    
+# third-party imports
+import numpy as np
+import pandas as pd
+import steamspypi
+                                    
+data = steamspypi.download_all_pages(num_pages=100)
+                                </code>
+                            </pre>
+                        </div>
+                        <br>
+                        <h5>Result:</h5>
+                        <br>
+                        <br>
+                        <br>
+                        <img src = assets/images/project-2_image1.png style="width: 100%;" class="img-zoom" alt="Zoomable Image"> <br> <br>
+                        <br>
+                        <br>
+                        <br>
+                        This file contains the <span class="text-brand">raw data</span> from the API in the form of <span class="text-brand">.json</span>. <br>
+                        What we need to do is <span class="text-brand">combine the data</span> and <span class="text-brand">turn the format into .csv</span>.
+                        <br><br>Code #2
+                        <div class="row">
+                            <div class="col">
+                                <div class="card card-body">
+                            <pre>
+                            <code>
+# standard library imports
+import csv
+import datetime as dt
+import json
+import os
+import statistics
+import time
+
+# third-party imports
+import numpy as np
+import pandas as pd
+import steamspypi
+
+for i in range (0,30):
+    page_name = '20240309_steamspy_page_' + str(i) + '.json'
+    csv_name = 'csvfile_' + str(i) + '.csv'
+    with open(page_name, encoding='utf-8') as inputfile:
+        df = pd.read_json(inputfile)
+        New_df=df.T.groupby(level=0).agg(lambda x : x.values.tolist()).stack().apply(pd.Series).unstack().sort_index(level=1,axis=1)
+        New_df.columns=New_df.columns.droplevel(level=0)
+        New_df = New_df.reset_index()
+        New_df.drop(['index'], axis=1, inplace=True)
+        print(New_df)
+    New_df.to_csv('test.csv', mode='a', index=False, header=False)
+                                        </code>
+                                    </pre>
+                                </div>
+                                <br>
+                                <h5>Result:</h5>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <img src = assets/images/project-2_image2.png style="width: 100%;"  class="img-zoom" alt="Zoomable Image"> <br> <br>
+                                <br>
+                                <br>
+                                <br>
+                                With this, we have gathered the data from SteamSpy, this data contains information about: <br>
+                                appid, <br>
+                                name, <br>
+                                developer, <br>
+                                publisher, <br>
+                                score_rank, <br>
+                                positive, <br>
+                                negative, <br>
+                                userscore, <br>
+                                owners, <br>
+                                average_forever, <br>
+                                average_2weeks, <br>
+                                median_forever, <br>
+                                median_2weeks, <br>
+                                price, <br>
+                                initialprice, <br>
+                                discount, <br>
+                                languages, <br>
+                                genre, <br>
+                                ccu, <br>
+                                tags <br>
+                                <br>
+                                Our next step will be to use the appid gathered from steamspy to pull data from Steam Store. <br>
+                                We can do that with the following script: <br> <br>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="card card-body">
+        
+                        <pre>
+                            <code>
+import os
+import pandas as pd
+import requests
+
+def get_game_details(app_id):
+    url = f"https://store.steampowered.com/api/appdetails?appids={app_id}"
+    response = requests.get(url)
+    data = response.json()
+
+    # Check if the request was successful and data is available
+    if str(app_id) in data and data[str(app_id)]['success']:
+        game_data = data[str(app_id)]['data']
+
+        # Initialize details dictionary with default values
+        details = {
+            'type': game_data.get('type', ''),
+            'name': game_data.get('name', ''),
+            'steam_appid': game_data.get('steam_appid', ''),
+            'required_age': game_data.get('required_age', ''),
+            'controller_support': game_data.get('controller_support', ''),
+            'dlc': game_data.get('dlc', ''),
+            'detailed_description': game_data.get('detailed_description', ''),
+            'about_the_game': game_data.get('about_the_game', ''),
+            'short_description': game_data.get('short_description', ''),
+            'fullgame': game_data.get('fullgame', ''),
+            'supported_languages': game_data.get('supported_languages', ''),
+            'header_image': game_data.get('header_image', ''),
+            'website': game_data.get('website', ''),
+            'pc_requirements': game_data.get('pc_requirements', ''),
+            'mac_requirements': game_data.get('mac_requirements', ''),
+            'linux_requirements': game_data.get('linux_requirements', ''),
+            'legal_notice': game_data.get('legal_notice', ''),
+            'drm_notice': game_data.get('drm_notice', ''),
+            'ext_user_account_notice': game_data.get('ext_user_account_notice', ''),
+            'developers': game_data.get('developers', ''),
+            'publishers': game_data.get('publishers', ''),
+            'demos': game_data.get('demos', ''),
+            'price': game_data['price_overview']['final_formatted'] if 'price_overview' in game_data else 
+                    ('0' if game_data.get('is_free', False) else 'price not available')
+        }
+
+        return details
+
+    else:
+        return 'Details not found'
+
+        # Read the existing CSV file
+        app_details = "app_details.csv"
+        index_file = "index.csv"
+        exists = os.path.isfile(app_details)
+        # Create an empty list to store game details
+        game_details_list = []
+        df = pd.read_csv("app_list.csv")
+        # Iterate over each row in the DataFrame
+        for i in range(len(df)):
+        app_id = df["appid"][i]
+        game_details = get_game_details(app_id)
+        game_details_list.append(game_details)
+        # Convert the list of dictionaries into a DataFrame
+        game_details_df = pd.DataFrame(game_details_list)
+        # Add column names to the game details DataFrame
+        column_names = ['type', 'name', 'steam_appid', 'required_age', 'controller_support', 'dlc',
+        'detailed_description', 'about_the_game', 'short_description', 'fullgame',
+        'supported_languages', 'header_image', 'website', 'pc_requirements',
+        'mac_requirements', 'linux_requirements', 'legal_notice', 'drm_notice',
+        'ext_user_account_notice', 'developers', 'publishers', 'demos', 'price']
+        game_details_df.columns = column_names
+        # Write to the CSV file
+        if not exists:
+        # Write both column names and details
+        game_details_df.to_csv(app_details, mode='w', header=True, index=False)
+        else:
+        # Append details only
+        game_details_df.to_csv(app_details, mode='a', header=False, index=False)
+        # Save index to a separate file
+        if not exists:
+        index_df = pd.DataFrame(df.index, columns=['index'])
+        index_df.to_csv(index_file, index=False)
+                                        </code>
+                                    </pre>
+                                </div>
+                                <br> <br>
+                                <h5>Result :</h5>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <img src = assets/images/project-2_image3.png style="width: 100%;"  class="img-zoom" alt="Zoomable Image"> <br> <br>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                With this, we have the data taken from steam store. And with this, we have the necessary data for our analysis.
+                                <br>
+                                <br>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Modal End Project 2-->

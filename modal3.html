@@ -1,0 +1,209 @@
+        <!-- Vertically centered scrollable modal -->
+        <div class="modal fade" id="modal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header"><h5>RevoBank Customer Analysis</h5></div>
+                    <br><br>
+                    <img src="assets/images/project-3-background.png" style="width: 100%;">
+                    <div class="modal-body">
+                        <h5>About</h5>
+                        This Project was made as the individual project during the Python module in RevoU. In this module, we applied what we learned with Python and what it can do in data analysis, visualization, and an application of machine learning. As a data analyst, we can evaluate the customer's value based on a few metrics. <br> <br>
+
+                        <h5>Objective</h5>
+                        Today's date is January 31, 2023, and you're a data analyst at RevoBank, a bank based in Europe. You're currently working with the Performance Management (PM) team, whose goal is to encourage existing customers to use RevoBank credit card products more. <br>
+                        You've received a data summary from the MIS (Management Information System) team, detailing clients and their sales over the last three years (36 months). Your manager has tasked you with summarizing the sales performance from the past three years and creating user personas based on the existing clients. <br> <br>
+                        
+                        <h5>Steps to take & Considerations</h5>
+                        The goal of this analysis is to understand patterns and trends of customer segmentations, create actionable insights, and identify business opportunities to optimize performance and decision-making. <br> <br>
+                        
+                        <h5>Dataset Overview</h5>
+                        <table class="table table-dark">
+                            <thead>
+                              <tr>
+                                <th>Column</th>
+                                <th>Data Type</th>
+                                <th>Description</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>account_id</td>
+                                <td>string</td>
+                                <td>Account ID</td>
+                              </tr>
+                              <tr>
+                                <td>account_activity_level</td>
+                                <td>string</td>
+                                <td>"A three-level categorical variable that codes the activity of each account.
+                                  X high activity.
+                                  Y average activity.
+                                  Z low activity."</td>
+                              </tr>
+                              <tr>
+                                <td>customer_value_level</td>
+                                <td>string</td>
+                                <td>A five-level (A-E) categorical variable that codes customer value. For example, the most profitable and creditworthy customers are coded with an A.</td>
+                              </tr>
+                              <tr>
+                                <td>MOB</td>
+                                <td>int</td>
+                                <td>Customer tenure in months</td>
+                              </tr>
+                              <tr>
+                                <td>flag_female</td>
+                                <td>int</td>
+                                <td>A categorical variable that is 1 if the account holder of the account if female and 0 otherwise.</td>
+                              </tr>
+                              <tr>
+                                <td>avg_sales_L36M</td>
+                                <td>float</td>
+                                <td>Average sales amount attributed to each account over the past three years</td>
+                              </tr>
+                              <tr>
+                                <td>cnt_sales_L36M</td>
+                                <td>int</td>
+                                <td>Number of products purchased in the past three years</td>
+                              </tr>
+                              <tr>
+                                <td>avg_sales_L36M_promo</td>
+                                <td>float</td>
+                                <td>Average sales amount attributed to each account in the past three years in response to a direct promotion</td>
+                              </tr>
+                              <tr>
+                                <td>cnt_sales_L36M_promo</td>
+                                <td>int</td>
+                                <td>Number of products purchased in the previous three years in response to a direct promotion</td>
+                              </tr>
+                              <tr>
+                                <td>last_sales</td>
+                                <td>float</td>
+                                <td>Amount of the last product purchased</td>
+                              </tr>
+                              <tr>
+                                <td>month_since_last_sales</td>
+                                <td>int</td>
+                                <td>Months since the last product purchase</td>
+                              </tr>
+                              <tr>
+                                <td>count_direct_promo_L12M</td>
+                                <td>int</td>
+                                <td>Number of direct promotions (e-mail, SMS, etc.) received by each account in the past year</td>
+                              </tr>
+                              <tr>
+                                <td>birth_date</td>
+                                <td>datetime</td>
+                                <td>Date of birth of account holder</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                          <h5>Steps to take & Considerations</h5>
+
+                          <br>
+                          <br>
+                          <img src = assets/images/project-3_image1.png style="width: 100%;" class="img-zoom" alt="Zoomable Image"> <br> <br>
+  
+                          1. Data Cleaning must be done to ensure that noise data and outliers doesn't affect the results in a significant way.<br> <br>
+                          2. Exploratory Data Analysis (EDA), hypothesis testing, and deriving insights and recommendations are integral stages in the analytical process, each playing a crucial role in extracting meaningful information from data. EDA involves examining the dataset through various graphical and statistical methods to uncover patterns, anomalies, and relationships among variables. It helps analysts understand the data's distribution, outliers, and potential biases, providing a foundation for further investigation. <br> <br>
+                          3. Customer segmentation allows us to segment customers based on their value, age, background, etc <br> <br>
+                          4. Cluster interpertation allows us to fully understand each clusters based on their Characteristics. <br> <br>
+                          5. Deriving insights and recommendations is the culmination of EDA and hypothesis testing. It involves interpreting the findings in the context of the problem or question at hand, drawing meaningful conclusions, and proposing actionable recommendations based on the data analysis. These recommendations could range from operational improvements to strategic decisions, depending on the insights uncovered during the analytical process. <br> <br>
+                          <br> <br>
+                          <h5>Execution</h5>
+                          <h6>Data Cleaning</h6>
+                          <table class="table table-dark">
+                            <thead>
+                              <tr>
+                                <th>Steps</th>
+                                <th>Code Snippet</th>
+                                <th>Considerations</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>Changing Data Types</td>
+                                <td>df['account_id'] = df['account_id'].astype(str);<br>df['birth_date'] = pd.to_datetime(df['birth_date'], format='%Y-%m-%d')</td>
+                                <td>ID is changed to string because it will not be used in calculations.<br>Birthdate needs to be converted to date format.</td>
+                              </tr>
+                              <tr>
+                                <td>Removing customers below 21 years old</td>
+                                <td>df['age'] = (pd.Timestamp('now') - df['birth_date']) // pd.Timedelta(days=365.25);<br>df = df[df['age'] >= 21]</td>
+                                <td>Filtering out customers younger than 21 years old based on birthdate.</td>
+                              </tr>
+                              <tr>
+                                <td>Check for Duplicates</td>
+                                <td>df[df['account_id'].duplicated()]</td>
+                                <td>Ensure no duplicate account IDs exist in the dataset.</td>
+                              </tr>
+                              <tr>
+                                <td>Impute or Remove Invalid Data</td>
+                                <td>df = df[~df['customer_value_level'].str.contains('F')];<br>df = df[~df['account_activity_level'].str.contains('XYZ')];<br>df.loc[df['avg_sales_L36M'] < 0, 'avg_sales_L36M'] = df.loc[df['avg_sales_L36M'] < 0, 'last_sales']</td>
+                                <td>Filter out rows where customer value level contains 'F' or account activity level contains 'X', 'Y', or 'Z'.<br>Replace negative values in 'avg_sales_L36M' with corresponding 'last_sales' values.</td>
+                              </tr>
+                              <tr>
+                                <td>Removing Outliers</td>
+                                <td>df = df[df['avg_sales_L36M'] <= 30000]</td>
+                                <td>Filter out rows where 'avg_sales_L36M' exceeds 30,000 to handle outliers.</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                          <h5>Exploratory Data Analysis</h5>
+                          <img src = assets/images/project-3_image2.png style="width: 100%;" class="img-zoom" alt="Zoomable Image"> <br> <br>
+                          <img src = assets/images/project-3_image3.png style="width: 100%;" class="img-zoom" alt="Zoomable Image"> <br> <br>
+                          <img src = assets/images/project-3_image4.png style="width: 100%;" class="img-zoom" alt="Zoomable Image"> <br> <br>
+                          <img src = assets/images/project-3_image5.png style="width: 100%;" class="img-zoom" alt="Zoomable Image"> <br> <br>
+                          <img src = assets/images/project-3_image6.png style="width: 100%;" class="img-zoom" alt="Zoomable Image"> <br> <br>
+                          <img src = assets/images/project-3_image7.png style="width: 100%;" class="img-zoom" alt="Zoomable Image"> <br> <br>
+                          <img src = assets/images/project-3_image8.png style="width: 100%;" class="img-zoom" alt="Zoomable Image"> <br> <br>
+                          <img src = assets/images/project-3_image9.png style="width: 100%;" class="img-zoom" alt="Zoomable Image"> <br> <br>
+                          <h5>Customer Segmentation</h5>
+                          Before we begin the clustering process, we take out the outliers. <br>
+                          Afterwards, we apply the segmentation.
+                          <img src = assets/images/project-3_image10.png style="width: 100%;" class="img-zoom" alt="Zoomable Image"> <br> <br>
+                          After getting 3 clusters, we can add the outliers as its own cluster and analyze it accordingly.
+                          <img src = assets/images/project-3_image11.png style="width: 100%;" class="img-zoom" alt="Zoomable Image"> <br> <br>
+                          <h5>Cluster Characteristics</h5>
+                          <img src = assets/images/project-3_image12.png style="width: 100%;" class="img-zoom" alt="Zoomable Image"> <br> <br>
+                          <h5>Cluster Treatment</h5>
+                          <table class="table table-dark">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Cluster Description</th>
+                                    <th scope="col">Recommendation</th>
+                                    <th scope="col">Expected Result</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">1</th>
+                                    <td>Old Accounts with medium Frequency of Transaction but high value per transaction.</td>
+                                    <td>Loyalty Program, offer higher tier of credit card, & credit Benefit Promotions</td>
+                                    <td>Given these are older accounts with ma high value per transacion, we should aim to reward their Loyalty by them a higher tier credit card that they can use and offer them premium services. Introducing a premium feature and rewards can encourage more transactions from this cluster. </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">2</th>
+                                    <td>Oldest Accounts with high Frequency of Transaction but lowest value per transaction. </td>
+                                    <td>Streamline Transaction Process and offer bundles.</td>
+                                    <td>Since their transaction frequency is already high anyway, we should focus on streamlining their transacions in order to keep their frequency high, and offer bundles to increase value per transaction.</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td>Medium Age Accounts with medium frequency, medium value per transaction.</td>
+                                    <td>Onboarding Process & Long-Term Relations Building</td>
+                                    <td>We should focus our attention to enchance their customer experience during the onboarding process to build brand loyalty. And consider building a customer to brand relationship that goes beyond simply transactions. Conside appreciation programs.</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">4</th>
+                                    <td>The Outliers, with very high value per transactions.</td>
+                                    <td>Offer Exclusive Offers & Rewards</td>
+                                    <td>Recognize their high-value status by offering exclusive offers, rewards, or VIP treatment. This could include access to limited edition products, invitations to exclusive events, or personalized thank-you gestures.</td>
+                            </tbody>
+                        </table>                        
+                        </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+        <!--Modal End Project 3-->

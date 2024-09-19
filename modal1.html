@@ -1,0 +1,449 @@
+<div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class = "modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Steam Product Analysis</h5>
+            </div>
+            <br><br>
+            <img src="https://wallpapercave.com/wp/wp3130205.png" style="width: 99%; margin: 0 auto;">
+            <div class="modal-body">                        
+                <h5>About</h5>  <br>
+                In this project, we aim to investigate and analyze the gaming trends based on their player count in the last 24 hours, and all time high player count.
+                <br><br>
+                With the use of Python for data cleaning and product segmentation, Excel for imputing data, and tableau for data visualization, we can analyze and find out what type of games are popular according to market demand.
+                <br><br>
+                <h5>Objective</h5> <br>
+                To identify past and current gaming trends with clustering for the top 250 games on steam using active players and peak player count to boost steam player count by 10% in the next 3-6 months.
+            <br><br> <br>
+            <h5>Steps to take & Considerations</h5> <br><br>
+            <img src = assets/images/project-1_image1.png style="width: 100%;" class="img-zoom" alt="Zoomable Image"> <br> <br> <br>
+            <h5>Cleaning Steam Store Data</h5> <br><br>
+            <table class="table table-dark">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Data Cleaning Steps</th>
+                        <th scope="col">Expected Result</th>
+                        <th scope="col">Code Snippet</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Selecting the Columns that we will use</td>
+                        <td>Data with only the selected column</td>
+                        <td>df = pd.read_csv('steam_store_data.csv') <br>
+                            df = df[['steam_appid', 'type', 'name','genres','release_date', 'required_age', 'controller_support','platforms', 'categories', 'recommendations']]
+                            </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>Changing the date Format</td>
+                        <td>Changing the data type on release date to 'date'</td>
+                        <td>df = df.dropna(subset=['release_date'])  <br>
+                            df['release_date'] = df2['release_date'].apply(lambda x: eval(x)['date'])
+                            </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <td>Seperating each platform</td>
+                        <td>To split the input into 3 columns for each platform: Windows, Mac, & Linux</td>
+                        <td># Function to construct the platform string <br>
+                            def construct_platform_string(row): <br>
+                                platform_dict = eval(row) <br>
+                                platform_string = '' <br>
+                                if platform_dict['windows']: <br>
+                                    platform_string += 'windows, ' <br>
+                                if platform_dict['mac']: <br>
+                                    platform_string += 'mac, ' <br>
+                                if platform_dict['linux']: <br>
+                                    platform_string += 'linux ' <br>
+                                return platform_string.strip() <br> <br>
+
+                                # Splitting the 'platforms' column into three columns <br>
+                                df[['windows', 'mac', 'linux']] = df['platforms'].str.split(',', expand=True) <br>
+                                df['windows'] = df['windows'].notnull().astype(int) <br>
+                                df['mac'] = df['mac'].notnull().astype(int) <br>
+                                df['linux'] = df['linux'].notnull().astype(int) <br>
+                            </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">4</th>
+                        <td>Seperating each Categories</td>
+                        <td>To seperate each categories</td>
+                        <td># Convert string representation of list to actual list <br>
+                            df['categories'] = df['categories'].apply(lambda x: ast.literal_eval(x) if pd.notna(x) else []) <br> <br>
+                            
+                            # Extract descriptions from the categories column <br>
+                            df['categories'] = df['categories'].apply(lambda x: [entry['description'] for entry in x]) <br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">5</th>
+                        <td>Status</td>
+                        <td>To Seperate each tags into its own input</td>
+                        <td>df_tags = df.explode('categories') <br>
+                            df_tags = df_tags[['steam_appid','categories']] <br>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+            <h5>Cleaning Steam Spy Data</h5>
+            <table class="table table-dark">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Data Cleaning Steps</th>
+                        <th scope="col">Expected Result</th>
+                        <th scope="col">Code Snippet</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Selecting the Columns that we will use</td>
+                        <td>Data with only the selected column</td>
+                        <td>import pandas as pd <br>
+                            import datetime <br>
+                            df = pd.read_csv('steam_spy.csv') <br>
+                            df = df[['appid','name','developer','publisher','price','average_2weeks', <br>
+                            'average_forever', 'ccu','initialprice','median_2weeks','median_forever', <br>
+                            'positive','negative','owners']] <br> <br>
+                            df['price'] = df['price']/100 <br>
+                            df.to_csv('steam_spy.csv', mode='w',index=False, header=True) <br>
+                            </td>
+                    </tr>
+                </tbody>
+            </table>    
+            <h5>Dataset Overview</h5> 
+            1. Steamspy Data. <br><br>
+            <table class="table table-dark">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Variable</th>
+                        <th scope="col">Data Type</th>
+                        <th scope="col">Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>appid</td>
+                        <td>Integer</td>
+                        <td>Unique identifier for the application</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>name</td>
+                        <td>String</td>
+                        <td>Name of the application</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <td>developer</td>
+                        <td>String</td>
+                        <td>Developer(s) of the application</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">4</th>
+                        <td>publisher</td>
+                        <td>String</td>
+                        <td>Publisher(s) of the application</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">5</th>
+                        <td>price</td>
+                        <td>Float</td>
+                        <td>Current price of the application</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">6</th>
+                        <td>average_2weeks</td>
+                        <td>Integer</td>
+                        <td>Average number of players/usage in the last two weeks</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">7</th>
+                        <td>average_forever</td>
+                        <td>Integer</td>
+                        <td>Average number of players/usage since the application's release</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">8</th>
+                        <td>ccu</td>
+                        <td>Integer</td>
+                        <td>Current number of concurrent users (CCU)</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">9</th>
+                        <td>initialprice</td>
+                        <td>Float</td>
+                        <td>Initial price of the application when it was first released</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">10</th>
+                        <td>median_2weeks</td>
+                        <td>Integer</td>
+                        <td>Median number of players/usage in the last two weeks</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">11</th>
+                        <td>median_forever</td>
+                        <td>Integer</td>
+                        <td>Median number of players/usage since the application's release</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">12</th>
+                        <td>positive</td>
+                        <td>Integer</td>
+                        <td>Number of positive reviews or ratings</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">13</th>
+                        <td>negative</td>
+                        <td>Integer</td>
+                        <td>Number of negative reviews or ratings</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">14</th>
+                        <td>owners</td>
+                        <td>String</td>
+                        <td>Estimated number of owners (or installations) of the application</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            2. Steam Store Data.<br><br>
+            <table class="table table-dark">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Variable</th>
+                        <th scope="col">Data Type</th>
+                        <th scope="col">Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>steam_appid</td>
+                        <td>Integer</td>
+                        <td>Unique identifier for the application on Steam</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>type</td>
+                        <td>String</td>
+                        <td>Type of the application (e.g., game, software)</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <td>name</td>
+                        <td>String</td>
+                        <td>Name of the application</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">4</th>
+                        <td>genres</td>
+                        <td>String (array)</td>
+                        <td>Genres or categories that the application belongs to</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">5</th>
+                        <td>release_date</td>
+                        <td>Date</td>
+                        <td>Date of release of the application</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">6</th>
+                        <td>required_age</td>
+                        <td>Integer</td>
+                        <td>Minimum age required to play or use the application</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">7</th>
+                        <td>controller_support</td>
+                        <td>Boolean</td>
+                        <td>Indicates if the application supports controllers</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">8</th>
+                        <td>platforms</td>
+                        <td>String</td>
+                        <td>Platforms supported by the application (e.g., Windows, macOS)</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">9</th>
+                        <td>categories</td>
+                        <td>String</td>
+                        <td>Additional categories or tags associated with the application</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">10</th>
+                        <td>recommendations</td>
+                        <td>Integer</td>
+                        <td>Number of recommendations for the application</td>
+                    </tr>
+                </tbody>
+            </table>
+            <h5>Tableau Dashboard</h5> 
+            This page shows us the overview of the data. <br> <br>
+            <img src="assets/images/tableau1.png" style="width: 100%;" class="img-zoom" alt="Zoomable Image"> <br> <br>
+            This page shows us the cluster analysis for the data. <br> <br>
+            <img src="assets/images/tableau2.png" style="width: 100%;" class="img-zoom" alt="Zoomable Image"> <br> <br>
+            <h5>Exploratory Data Analysis</h5> 
+            <img src="assets/images/project-1_image2.png" style="width: 100%;" class="img-zoom" alt="Zoomable Image"> <br> <br>
+            <br> 
+            There are 85103 number of total store listings, 265560 number of tags, and we have filtered the current number of players & all time high number of players.
+            <br>
+            <br>
+            <br>
+            <img src="assets/images/project-1_image3.png" style="width: 100%;" class="img-zoom" alt="Zoomable Image"> <br> <br>
+            <br> 
+            Based on the number of concurrent user, steam has reached an all time high.
+            <br>
+            <br>
+            <br>
+            <img src="assets/images/project-1_image4.png" style="width: 100%;" class="img-zoom" alt="Zoomable Image"> <br> <br>
+            <br> 
+            Number of the number of unique steam new releases has also reached an all time high.
+            <br>
+            <br>
+            <br>
+            <img src="assets/images/project-1_image5.png" style="width: 100%;" class="img-zoom" alt="Zoomable Image"> <br> <br>
+            <br> 
+            Using Paleto Principle, we can find what games are in demand based on the top 250 games.
+            <br>
+            <br>
+            <br>
+            <img src="assets/images/project-1_image6.png" style="width: 100%;" class="img-zoom" alt="Zoomable Image"> <br> <br>
+            <br> 
+            The general overview of steam library.
+            <br>
+            <br>
+            <br>
+            <h5>Steam Product Clustering Using K-Means Clustering</h5>
+            We will cluster the steam products based on All time high peak-player and 24hr peak-players.
+            <br>
+            <img src="assets/images/project-1_image7.png" style="width: 100%;" class="img-zoom" alt="Zoomable Image"> <br> <br>
+            We can determine the number of clusters using the elbow method
+            <br>
+            <br>
+            <img src="assets/images/project-1_image8.png" style="width: 100%;" class="img-zoom" alt="Zoomable Image"> <br> <br>
+            Silhouette score : 0.6832345
+            <br>
+            <br>
+            Based on the elbow method and silhouette score, we can make 5 clusters based on the silhouette score.
+            <br>
+            <br>
+            <h5>Cluster Analysis</h5>
+            <br>
+            <br>
+            <table class="table table-dark">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Cluster Name</th>
+                        <th scope="col">Average Active Players (24hr)</th>
+                        <th scope="col">Peak Playes</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Games</th>
+                        <th scope="col">Popular Genres</th>
+                        <th scope="col">Cluster Treatment</th>
+                    </tr>
+                </thead>
+                Cluster Characteristics
+                <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Most Popular Games</td>
+                        <td>365,559</td>
+                        <td>1,585,183</td>
+                        <td>Very High Active Players, Very High Peak</td>
+                        <td>CS2, PUBG, DOTA 2, Baldur’s Gate 3, Lost Ark, Elden Ring, Palword, Cyberpunk 2077</td>
+                        <td>Online Co-op, Multiplayer, Team-Based, Fantasy, Difficult, Co-op, Character customization, Action-RPG.</td>
+                        <td><li>Monitor for changes in the player count. </li><br>
+                            <li>Use as input for players to recommend similar games. </li><br>
+                            <li>To increase trust and user retention, make player appreciation events to keep user satisfaction high.</li><br>
+                            <li>Feature in a steam article or community page on why the games in this clusters are so great.</li><br>
+                            <li>Can be used as case study for game developers.</li><br>
+                            </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>Popular Games</td>
+                        <td>65,471</td>
+                        <td>378,768</td>
+                        <td>Above Average Active Players, High Peak</td>
+                        <td>Tom Clancy’s Rainbow six Siege, Monster Hunter World, Destiny 2, Team Fortress 2, Path of Exile, etc.</td>
+                        <td>Action, Singleplayer, Multiplayer, Co-op, Atmospheric, Adventure, Shooter, RPG, Action-RPG.</td>
+                        <td><li>Use as input for players to recommend similar games. </li><br>
+                            <li>Actively promote games in regular days and sales or seasonal campaigns. </li><br>
+                            <li>Offer the developers a partnership in steam store if, they have multiple games. </li><br>
+                            <li>Feature in top games in certain genres. </li><br>
+                            <li>For example, Capcom Developer Game Sales Campaign. </li><br>                         
+                            </td>
+
+                    </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <td>Middle Ground</td>
+                        <td>34,564</td>
+                        <td>109,205</td>
+                        <td>Average Active Players, Average Peak</td>
+                        <td>Last Epoch, Payday2, The Finals, Dragon’s Dogma 2, Total War Warhammer III, Left 4 Dead 2.</td>
+                        <td>Open world, Adventure, Co-op, Simulation, First-person, Sandbox.</td>
+                        <td>
+                            <li>Feature in stores or sales and seasonal campaigns. </li><br>
+                            <li>Increase the chance of the game appearing in player storefront. </li><br>
+                            </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">4</th>
+                        <td>Recommendation Pool</td>
+                        <td>11,177</td>
+                        <td>49,690</td>
+                        <td>Below Average Active Players, Below Average peak</td>
+                        <td>Dying light 2, Mount and Blade II Bannerlord, No man’s sky.</td>
+                        <td>Action, Adventure, Simulation, Open world, Strategy, Co-op, RPG.</td>
+                        <td>
+                            <li>Encourage the developers to push for updates and help them promote. </li><br>
+                            <li>Need to increase exposure, since games in this cluster have potential. </li><br>
+                            <li>Highlight in-game events or new updates in our store banner. </li><br>                                    
+                            </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">5</th>
+                        <td>The Sleeping Giant</td>
+                        <td>11,689</td>
+                        <td>438,072</td>
+                        <td>Below Average Active Players, Very high peak</td>
+                        <td>New World, Valheim, Among us, Sons of the Forest, Starfield, etc.</td>
+                        <td>Action, co-op, open world, multiplayer, survival.</td>
+                        <td>
+                            <li>Encourage the developers to update the game or make a sequel by using email or notification through steam. </li><br>
+                            <li>Feature in a new kind of sales event, something called “run it back” campaign to feature games in this cluster.</li><br>
+                            <li>Make sure to also give discounts to similar games in that campaign.</li><br>
+                            </td>
+                    </tr>
+                </tbody>
+            </table>
+            <h5>Insights & Recommendations</h5> <br> <br>
+            Based on the result of our Exploratory Data Analysis and Cluster Analysis, there are a few recommendations that we can employ: <br>
+            <li>Product Recommendation System. </li><br>
+            By using the clusters, we can make recommendations based on what's popular. <br>
+            We can use the higher tier clusters exposure to show similar games. <br>
+            <img src="assets/images/project-1_image9.png" style="width: 100%;" class="img-zoom" alt="Zoomable Image"> <br> <br>
+            <img src="assets/images/project-1_image10.png" style="width: 100%;" class="img-zoom" alt="Zoomable Image"> <br> <br>
+            <li>Steam Storefront Optimization. </li><br>
+            To enhance our storefront, we can employ a combination of recommendation systems based on clusters and recommendations derived from game reviews.
+            <img src="assets/images/project-1_image11.png" style="width: 100%;" class="img-zoom" alt="Zoomable Image"> <br> <br>
+            <h5>Impact Analysis</h5>
+            <img src="assets/images/project-1_image12.png" style="width: 100%;" class="img-zoom" alt="Zoomable Image"> <br> <br>
+        </div>
+        </div>
+    </div>
+</div>
+<!--Modal End Project 1-->

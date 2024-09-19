@@ -1,0 +1,256 @@
+        <!--Modal Start Project 4-->
+        <!-- Vertically centered scrollable modal -->
+        <div class="modal fade" id="modal4" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header"><h5>TokoBli Twin Date Campaign Analysis</h5></div>
+                    <br><br>
+                    <img src="https://gananjayaivan.github.io/portfolio/assets/images/project-4-background.png" style="width: 99%; margin: 0 auto;">
+                    <div class="modal-body">
+                        <h5>About</h5>
+                        This Project was made as the individual project during the Statistics and Spreadsheet module in RevoU. In this module, we applied what we learned in statistical concepts such as Hypothesis and regression testing, and we used spreadsheet to do our analysis. Our responsibility as a data analyst is to To evaluate the performance, seek insights, for each scenarios based on the data gathered from the 3 campaigns so that we can make more informed business decisions for future campaigns.
+                        <br> <br>
+                        <h5>Objective</h5>
+                        1. Evaluate which campaigns generates the most revenues, has the highest amount of discount and to compare each campaign’s performance to one another.
+                        <br> <br>
+                        2. To give us an overview of the top 3-5 (Depending on the results) best performing products during the campaign based on revenue generated (Most Profitable) and number of transactions (Most Popular) for each campaign. To check the return of investments (ROI) of each product category.
+                        <br> <br>
+                        3. By calculating ROI, we can identify which products are the most profitable with each units sold.
+                        <br>
+                        <br>
+                        <h5>Dataset Overview</h5>
+                        <table class="table table-dark">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Variable</th>
+                                    <th scope="col">Data Type</th>
+                                    <th scope="col">Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">1</th>
+                                    <td>Transaction ID</td>
+                                    <td>Categorical</td>
+                                    <td>Unique identifier of a transaction</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">2</th>
+                                    <td>Product ID</td>
+                                    <td>Numerical</td>
+                                    <td>Unique identifier of a product</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td>Customer ID</td>
+                                    <td>Numerical</td>
+                                    <td>Unique identifier of a customer</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">4</th>
+                                    <td>Gender</td>
+                                    <td>Categorical</td>
+                                    <td>F: Female, M: Male</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">5</th>
+                                    <td>Status</td>
+                                    <td>Categorical</td>
+                                    <td>Order status</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">6</th>
+                                    <td>Created At</td>
+                                    <td>Date</td>
+                                    <td>Transaction date</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">7</th>
+                                    <td>Campaign</td>
+                                    <td>Categorical</td>
+                                    <td>Campaign period</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">8</th>
+                                    <td>SKU</td>
+                                    <td>Categorical</td>
+                                    <td>Product SKU</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">9</th>
+                                    <td>Price</td>
+                                    <td>Numerical</td>
+                                    <td>Product price (IDR)</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">10</th>
+                                    <td>QTY</td>
+                                    <td>Numerical</td>
+                                    <td>Product quantity (Unit)</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">11</th>
+                                    <td>Discount</td>
+                                    <td>Numerical</td>
+                                    <td>Product discount (IDR)</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">12</th>
+                                    <td>Shipping Cost</td>
+                                    <td>Numerical</td>
+                                    <td>Product shipping cost (IDR)</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">13</th>
+                                    <td>Total Revenue</td>
+                                    <td>Numerical</td>
+                                    <td>Total amount spent (IDR)</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">14</th>
+                                    <td>Category Name</td>
+                                    <td>Categorical</td>
+                                    <td>Category of product</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">15</th>
+                                    <td>Payment Method</td>
+                                    <td>Categorical</td>
+                                    <td>Method of payment</td>
+                                </tr>
+                            </tbody>
+                        </table>                        
+                        <br>
+                        <h5>Steps to take & Considerations</h5>
+
+                        <br>
+                        <br>
+                        <img src = assets/images/project-4_image1.png style="width: 100%;" class="img-zoom" alt="Zoomable Image"> <br> <br>
+
+                        1. Data Cleaning must be done to ensure that noise data and outliers doesn't affect the results.<br> <br>
+                        2. Descriptive Analytics helps us find information about the data such as central tendency (mean, median, mode), dispersion (range, variance, standard deviation), and distribution (skewness, kurtosis). By examining these metrics, analysts can gain a deeper understanding of the dataset's structure and patterns. <br> <br>
+                        3. Exploratory Data Analysis (EDA), hypothesis testing, and deriving insights and recommendations are integral stages in the analytical process, each playing a crucial role in extracting meaningful information from data. EDA involves examining the dataset through various graphical and statistical methods to uncover patterns, anomalies, and relationships among variables. It helps analysts understand the data's distribution, outliers, and potential biases, providing a foundation for further investigation. <br> <br>
+                        4. Hypothesis testing, on the other hand, is used to validate assumptions or theories about the data. It involves formulating a hypothesis, typically stating a null hypothesis (no effect or relationship) and an alternative hypothesis (some effect or relationship exists), and then using statistical tests to determine the likelihood of the observed results occurring by chance. This rigorous process helps confirm or refute hypotheses, providing statistical evidence to support decision-making. <br> <br>
+                        5. Deriving insights and recommendations is the culmination of EDA and hypothesis testing. It involves interpreting the findings in the context of the problem or question at hand, drawing meaningful conclusions, and proposing actionable recommendations based on the data analysis. These recommendations could range from operational improvements to strategic decisions, depending on the insights uncovered during the analytical process. <br> <br>
+                        <br> <br>
+                        <h5>Execution</h5>
+                        <br>
+                        <h6> Data Cleaning Process </h6>
+                        In this stage, we need to make sure the data is clean by removing rows and columns missing and duplicate data, changing the data into appropiate type, imputing missing data, and adding new KPI for analysis.
+                        <br>
+                        <br>
+                        <table class="table table-dark">
+                            <thead>
+                              <tr>
+                                <th>No</th>
+                                <th>Action</th>
+                                <th>Reasoning</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>1</td>
+                                <td>Remove rows and columns with missing data</td>
+                                <td>With only 54 entries out of 10160, the status column will be removed.</td>
+                              </tr>
+                              <tr>
+                                <td>2</td>
+                                <td>Remove rows with duplicated data</td>
+                                <td>By using transaction id, we can remove duplicated data.</td>
+                              </tr>
+                              <tr>
+                                <td>3</td>
+                                <td>Change data type of columns that is not suitable</td>
+                                <td>Changing the type of column for price, discount, and total revenue columns to Currency (IDR).</td>
+                              </tr>
+                              <tr>
+                                <td>4</td>
+                                <td>Impute Missing Data</td>
+                                <td>Using these formulas:
+                                  <ul>
+                                    <li>Revenue = (Price * Quantity) - Discount</li>
+                                    <li>Price = (Revenue + Discount) / Quantity</li>
+                                    <li>Quantity = (Revenue + Discount) / Price</li>
+                                    <li>Discount = (Price * Quantity) - Revenue</li>
+                                  </ul>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>5</td>
+                                <td>Adding new KPI for analysis</td>
+                                <td>We can calculate ROI based on: Revenue / Discount</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                            
+                        <br>
+                        <br>
+                        <h6>Descriptive Analysis</h6>
+                        To eliminate outliers and to check the data skewness, we can use the candle chart and a histogram for skewness.
+                        <br>
+                        <br>
+                        <img src = assets/images/project-4_image4.png style="width: 100%;" class="img-zoom" alt="Zoomable Image">
+                        <br> <br>
+                        <h6>Exploratory Data Analysis</h6>
+                        <h7>First, we can compare a few things between the 3 campaigns: <br>
+                        transactions, revenue, expenses, ROI, and products sold.</h7>
+                        <br> <br>
+                        <br>
+                        <br>
+                        <img src = assets/images/project-4_image5.png style="width: 100%;" class="img-zoom" alt="Zoomable Image">
+                        <h6> <br>Insights <br></h6>
+                        <li>Transaction wise, there are almost the same across all 3 campaigns with a less than 5% difference. <br>  </li>
+                        <li>The return of interest shows us that out of all the 3 campaigns, Campaign 12/12 was the most optimized in terms of ROI.</li>
+                        <li>Revenue wise, the most profitable campaign was the 11/11 campaign, with the least amount of transaction and the highest expenses out of all three campaigns. <br> </li>
+                        <br> <br>
+                        <h6>Comparing Customer's Performance by gender <br></h6>
+                        <br>
+                        <br>   
+                        <img src = assets/images/project-4_image6.png style="width: 100%;" class="img-zoom" alt="Zoomable Image">
+                        <br>
+                        <br>  
+                        <h6> <br>Insights <br></h6>
+                            Overall, our male customers have a higher return of interest compared to the female customers.
+                            <br> <br>
+                        <h6>Comparing Product Categories per Campaign <br></h6>
+                        <br>
+                        <br>  
+                        <img src = assets/images/project-4_image7.png style="width: 100%;" class="img-zoom" alt="Zoomable Image">
+                        <br>
+                        <br>    
+                        <h6> <br>Insights <br></h6>
+                            Overall, the most popular and most profitable product categories are Men’s Fashion, Beauty & Grooming, and Superstore.
+                            Campaign 11/11 most profitable product category by far is men’s fashion. <br><br>
+                        <h6>Most Profitable Category Overall<br></h6>
+                        <br>
+                        <br>
+                        <img src = assets/images/project-4_image8.png style="width: 100%;" class="img-zoom" alt="Zoomable Image">
+                        <br>
+                        <br>   
+                        <h6> <br>Insights <br></h6>
+                            The most profitable product categories are men’s fashion, appliances, and books. <br><br>
+                        <h6>Summary</h6><br>
+                        <br>    
+                        <img src = assets/images/project-4_image9.png style="width: 100%;" class="img-zoom" alt="Zoomable Image">
+                        <br>
+                        <br>
+                        <br>
+                        <br><h6>Hypothesis Testing</h6><br>
+                            <img src = assets/images/project-4_image10.png style="width: 100%;" class="img-zoom" alt="Zoomable Image">
+                            <img src = assets/images/project-4_image11.png style="width: 100%;" class="img-zoom" alt="Zoomable Image">
+                            <img src = assets/images/project-4_image12.png style="width: 100%;" class="img-zoom" alt="Zoomable Image">
+                            <br>
+                            <br>
+                            <br>    
+                        <br><h6>Business Reccomendations</h6><br>
+                        <img src = assets/images/project-4_image13.png style="width: 100%;" class="img-zoom" alt="Zoomable Image">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+        
+        <!--Modal End Project 4-->
