@@ -192,7 +192,7 @@ img {
     table {
         width: 50%;
     }
-    img {
+    .profile {
         width: 1%;
         visibility: hidden;
     }
