@@ -8,7 +8,7 @@
     --color-base2: #264653;
     --color-brand:  #e7a807;
     --color-brand2: #deff58;
-    --sidbar-width: 360px;
+    --sidebar-width: 240px;
     --font-base: "Bai Jamjuree";
 }
 
@@ -44,7 +44,7 @@ body {
     background: linear-gradient(to right, rgba(3, 63, 71, 0.5), rgba(121, 62, 32, 0.5)), url(../images/background.png);
     color: var(--color-body);
     font-family: var(--font-base), sans-serif;
-    margin-left: 360px;
+    margin-left: 480px;
 }
 
 h1,h2,h3,h4,h5,h6 {
@@ -137,7 +137,7 @@ img {
 @media (min-width: 1080px) {
     .navbar {
         min-height: 100vh;
-        width: var(--sidbar-width);
+        width: var(--sidebar-width);
         background: linear-gradient(rgba(0, 12, 14, 0.9), rgba(0, 12, 14, 0.9)), url(../images/sidebar-img.jpg);
         background-size: cover;
         background-position: center;
@@ -150,7 +150,7 @@ img {
 
     /* CONTENT WRAPPER */
     #content-wrapper {
-        padding-left: var(--sidbar-width);
+        padding-left: var(--sidebar-width);
     }
     body {
         margin:0;padding:0;
